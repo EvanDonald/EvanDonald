@@ -1,0 +1,101 @@
+
+
+<?php require('admin_header.inc'); ?>
+
+<?php include_once('admin.inc'); ?>
+
+	<div id='content'>
+	<br>
+	
+		<table>
+			<thead>
+				<!--Declaring table rows-->
+				<tr>
+					<!--Naming table headers-->
+					<th colspan = "2">Product</th>
+					
+					<th>Cost</th>
+					<th>Stock</th>
+					<th>Update</th>
+				</tr>
+			</thead>
+		
+			
+			<!--print "<input type='number' name='qty".$row['id']."'value='".$row['qty']."'>";-->
+			
+			<?php require_once('db.inc'); ?>
+			
+			
+			<?php
+				$result = $db->query('select * from products');
+				while($row = $result->fetch_object()) 
+				{
+					print "<tr>";
+						print "<form action='update.html'>";
+							print "<td>";
+							print "<input type='text' name='name' value='".$row->Name."'>";
+							print "</td>";
+							print "<td><img src='product".$row->Id.".jpg' alt='hen' class='productimage'></td>";
+							print "<td>$";
+							print "<input type='number' step='0.01' name='price' value='".$row->Price."'>";
+							print "</td>";
+							print "<td>";
+							print "<input type='number' name='qty' value='".$row->Qty."'>";
+							print "</td>";
+							print "<td>";
+							print "<input type='hidden' name='product' value='".$row->Id."'>";
+							print "<button type='submit'>Update</button>";
+							print "</td>";
+						print "</form>";
+					print "</tr>";
+				}
+			?>
+
+		</table>
+		<br><br>
+		
+		
+		<table>
+			<?php
+				print "<form enctype='multipart/form-data' action='create.html' method='post'>";
+					print "<tr>";
+						print "<td>";
+						print "Name";
+						print "</td>";
+						print "<td><input type='text' name='name'></td>";
+					print "</tr>";
+					print "<tr>";
+						print "<td>";
+						print "Price";
+						print "</td>";
+						print "<td><input type='number' name='price' step='0.01'></td>";
+					print "</tr>";
+					print "<tr>";
+						print "<td>";
+						print "Qty";
+						print "</td>";
+						print "<td><input type='number' name='qty'></td>";
+					print "</tr>";
+					print "<tr>";
+						print "<td colspan='2'><button type=’submit’>Create Product</button></td>";
+					print "</tr>";
+				print "</form>";
+				
+			?>
+		</table>
+		
+		<br>
+		<br>
+		
+		<form enctype='multipart/form-data' action='delete.html' method='post'>
+			<button type='submit'>Delete a Product</button>
+		</form>
+		
+			
+	</div>
+	
+
+
+	<a href='login.html?logoff=1'>Logoff</a>
+
+<?php include('foot.inc'); ?>

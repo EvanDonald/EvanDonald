@@ -1,0 +1,15 @@
+<?php include('head.inc'); ?>
+
+<div id='content'>
+	<br>
+	
+	<?php
+	
+		require_once('db.inc');
+		$id = $_GET['product'];
+		$name = $_GET['name'];
+		$price = $_GET['price'];
+		$qty = $_GET['qty'];
+		$db->query("delete from products where id=$id");
+		print 'Deleted the following field from the database ('. $name . ', $' . $price . ', ' . $qty. ')';
+	?>

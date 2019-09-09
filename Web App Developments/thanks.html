@@ -1,0 +1,242 @@
+<!--
+Name: Evan Donald
+Date: January 23, 2019
+Complete through lab 12
+Purpose: thanks
+-->
+
+<?php include('head.inc'); ?>
+	<div id='content'>
+		
+		Thank you for ordering: 
+		
+		<?php require_once('db.inc'); ?>
+		
+		<?php
+		
+			//if($_GET['product'] == 1) print "Individual Hens";
+			//if($_GET['product'] == 2) print "Coop with Two Hens";
+			//if($_GET['product'] == 3) print "Feed";
+			
+			/*if(!empty($_GET['product'])) 
+			{ // Use POST if you need to
+				require_once('cart.inc');
+				cart_add(1, $_GET['product']);
+			}*/
+			
+			cart_show();
+			
+			
+			
+			/*$result = $db->query("select * from products where id=".$_GET['product']);
+			if($stmt = $db->prepare("select * from products where id=?")) 
+			{
+				$stmt->bind_param('i', $_GET['product']);
+				$stmt->execute();
+				if($result=$stmt->get_result() && $row=$result->fetch_object()) 
+				{
+					print " ".$row->Name;
+				}
+			}*/
+			
+			/*if(empty($_GET['product']) || $_GET['product']<1 || $_GET['product']>3) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('products.html');
+				
+			}*/
+			
+			
+			if(empty($cart)) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('products.html');
+			}
+			
+			if(empty(trim($_GET['fname']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('First Name is a required field.'));
+			}
+			
+			if(empty(trim($_GET['lname']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Last Name is a required field.'));
+			}
+			
+			if(!filter_var($_GET['email'], FILTER_VALIDATE_EMAIL))
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Please enter a valid email.'));
+			}
+			
+			if(empty(trim($_GET['street']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Street is a required field.'));
+			}
+			if(empty(trim($_GET['city']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('City is a required field.'));
+			}
+			if(empty(trim($_GET['state']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('State is a required field.'));
+			}
+			if (!preg_match('#[0-9]{5}#', $_GET['zip']))
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Please enter a valid zip code.'));
+			}
+			
+			if(empty(trim($_GET['cardnum']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Card Number is a required field.'));
+			}
+			if($_GET['expmonth'] < 0 || $_GET['expmonth'] > 12) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Please enter a valid month.'));
+			}
+			if($_GET['expyear'] < 2019 || $_GET['expyear'] > 2100) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Please enter a valid year.'));
+			}
+			if(empty(trim($_GET['seccode']))) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('order.html?product='.$_GET['product'].'&error='.
+				urlencode('Security code is a required field.'));
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+
+		?>
+		
+	</div>
+<?php include('foot.inc'); ?>

@@ -1,0 +1,28 @@
+
+
+<?php include('head.inc'); ?>
+
+	<div id='content'>
+	<br>
+	
+	<?php
+
+		
+	   
+	   
+		$name = $_POST['name'];
+		$price = $_POST['price'];
+		$qty = $_POST['qty'];
+			
+		
+		require_once('db.inc');
+		$stmt = $db->prepare('insert into products (name, price, qty)
+		values (?, ?, ?)');
+		$stmt->bind_param('sds', $_POST['name'], $_POST['price'], $_POST['qty']);
+		$stmt->execute();
+		
+		
+		print 'Added the following field to the database ('. $name . ', $' . $price . ', ' . $qty. ')';
+	?>
+	
+	</div>

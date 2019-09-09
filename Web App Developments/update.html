@@ -1,0 +1,39 @@
+
+<?php include('head.inc'); ?>
+
+	<div id='content'>
+	<br>
+
+	<?php
+
+		
+		$dbhost = 'localhost';
+		$dbuser = 'edonald';
+		$dbpass = '300714';
+		$dbname = 'edonald';
+		$conn = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+	   
+		if(! $conn ) {
+			die('Could not connect: ' . mysqli_error());
+		}
+	   
+		$id = $_GET['product'];
+		$name = $_GET['name'];
+		$price = $_GET['price'];
+		$qty = $_GET['qty'];
+			
+		
+		$sql = 'UPDATE `products` SET `Name`= \''.$name.'\',`Price`= \''.$price.'\',`Qty`= \''.$qty.'\' WHERE `Id` = \''.$id.'\'';
+		
+		
+		if (mysqli_query($conn, $sql)) {
+			print 'Updated the following field in the database ('. $name . ', $' . $price . ', ' . $qty. ')';
+		} else {
+			print "Error updating record: " . mysqli_error($conn);
+		}
+		mysqli_close($conn);
+	?>
+
+
+		
+	</div>

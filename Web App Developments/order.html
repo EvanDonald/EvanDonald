@@ -1,0 +1,188 @@
+<!--
+Name: Evan Donald
+Date: January 23, 2019
+Complete through lab 12
+Purpose: order form
+-->
+
+<?php include('head.inc'); ?>
+	<div id='content'>
+		<br>
+		
+		Your cart:
+		<br>
+		Please enter a 0 into quantity to delete an item from the cart.
+		
+		
+		<?php require_once('db.inc'); ?>
+		
+		<?php
+		
+		
+			/*if(!empty($_GET['product'])) 
+			{ // Use POST if you need to
+				//include('cart.inc');
+				cart_add(1, $_GET['product']);
+			}*/
+
+			cart_show();
+		
+		
+		
+			//if($_GET['product'] == 1) print "Individual Hens";
+			//if($_GET['product'] == 2) print "Coop with Two Hens";
+			//if($_GET['product'] == 3) print "Feed";
+			
+			/*$result = $db->query("select * from products where id=".$_GET['product']);
+			if($stmt = $db->prepare("select * from products where id=?")) 
+			{
+				$stmt->bind_param('i', $_GET['product']);
+				$stmt->execute();
+				if($result=$stmt->get_result() && $row=$result->fetch_object()) 
+				{
+					print " ".$row->Name;
+				}
+			}*/
+
+			
+			/*if(empty($_GET['product']) || $_GET['product']<1 || $_GET['product']>3) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('products.html');
+				
+			}*/
+			
+			if(empty($cart)) 
+			{
+				function redirect($url) 
+				{
+					header('Location: '.$url);
+					die("<html>
+						<meta http-equiv='refresh' content='0; $url'>
+						<body onload=\"location.replace('$url');\">
+						<a href='$url'>$url</a>
+						</body></html>");
+				}
+				redirect('products.html');
+			}
+
+
+		?>
+		
+		<br>
+		
+		<?php
+			if(!empty($_GET['error'])) 
+			{
+				print "<p class='error'>";
+				print $_GET['error'];
+				print "</p>";
+			}
+		?>
+
+		
+		<table>
+			<form action='thanks.html' onsubmit='return submithandler();'>	
+			
+				<input type='hidden' name='product' value='<?php echo $_GET['product'];?>'>
+				
+				<div id='emptyfname' class='errormsg'>
+					First Name is a required field.
+				</div>
+				<div id='emptylname' class='errormsg'>
+					Last Name is a required field.
+				</div>
+				<div id='emptyemail' class='errormsg'>
+					Please enter a valid email.
+				</div>
+				<div id='emptystreet' class='errormsg'>
+					Street is a required field.
+				</div>
+				<div id='emptycity' class='errormsg'>
+					City is a required field.
+				</div>
+				<div id='emptystate' class='errormsg'>
+					State is a required field.
+				</div>
+				<div id='emptyzip' class='errormsg'>
+					Zip code is a required field.
+				</div>
+				<div id='emptycardnum' class='errormsg'>
+					Card number code is a required field.
+				</div>
+				<div id='emptymonth' class='errormsg'>
+					Please enter a valid month.
+				</div>
+				<div id='emptyyear' class='errormsg'>
+					Please enter a valid year.
+				</div>
+				<div id='emptycode' class='errormsg'>
+					Security code is a required field.
+				</div>
+				<tr>
+					<td colspan='4'> Customer Information </td>
+				</tr>
+				<tr>
+					<td class='label'>First Name</td>
+					<td class='input'><input type='text' name='fname' id='fname'></td>
+					<td class='label'>Last Name</td>
+					<td class='input'><input type='text' name='lname' id='lname'></td>
+				</tr>
+				<tr>
+					<td class='label'>Email</td>
+					<td class='input' colspan='3'><input type='text' name='email' id='email'></td>
+				</tr>
+				<tr>
+					<td colspan='4'> Address </td>
+				</tr>
+				
+				<tr>
+					<td class='label'>Street</td>
+					<td class='input' colspan='3'><input type='text' name='street' id='street'></td>
+				</tr>
+				<tr>
+					<td class='label'>City</td>
+					<td class='input'><input type='text' name='city' id='city'></td>
+					<td class='label'>State</td>
+					<td class='input'><input type='text' name='state' id='state'></td>
+				</tr>
+				<tr>
+					<td class='label'>Zip</td>
+					<td class='input'><input type='text' name='zip' id='zip'></td>
+				</tr>
+				
+				<tr>
+					<td colspan='4'> Card Information </td>
+				</tr>
+				<tr>
+					<td class='label'>Card Number</td>
+					<td class='input' colspan='3'><input type='text' name='cardnum' id='cardnum'></td>
+				</tr>
+				<tr>
+					<td class='label'>Exp Month</td>
+					<td class='input'><input type='number' name='expmonth' id='expmonth'></td>
+					<td class='label'>Exp Year</td>
+					<td class='input'><input type='number' name='expyear' id='expyear'></td>
+				</tr>
+				
+				<tr>
+					<td class='label'>Security Code</td>
+					<td class='input'><input type='text' name='seccode' id='seccode'></td>
+				</tr>
+				
+				<tr>
+					<td class= 'button' colspan='4'><button type='submit'>Submit</button></td>
+				</tr>
+			</form>
+		</table>
+		
+	</div>
+<?php include('foot.inc'); ?>

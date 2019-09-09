@@ -1,0 +1,119 @@
+<!--
+Name: Evan Donald
+Date: January 23, 2019
+Complete through lab 12
+Purpose: To show list of products
+-->
+
+<?php include('head.inc'); ?>
+		
+	<div id='content'>
+		<!--Starting a paragraph-->
+		<p>
+			<h3>
+				Our Products
+			</h3>
+		</p>
+		
+		
+		<!--Table begins-->
+		<table>
+			<thead>
+				<!--Declaring table rows-->
+				<tr>
+					<!--Naming table headers-->
+					<th colspan = "2">Product</th>
+					
+					<th>Cost</th>
+					<th>Stock</th>
+					<th>Cart</th>
+				</tr>
+			</thead>
+			
+			<!--
+			<tr>
+				<td>Individual Hens</td>
+				<td><img src='hen.jpg' alt='hen' class='productimage'></td>
+				<td>$125 for 6 months</td>
+				<td>63</td>
+				<td> 
+					<form action='order.html'>
+						<input type='hidden' name='product' value='1'>
+						<button type='submit'>Add to Cart</button>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>Coop with Two Hens</td>
+				<td><img src='coop.jpg' alt='coop' class='productimage'></td>
+				<td>$350 for 6 months</td>
+				<td>27</td>
+				<td> 
+					<form action='order.html'>
+						<input type='hidden' name='product' value='2'>
+						<button type='submit'>Add to Cart</button>
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>Feed</td>
+				<td><img src='feed.jpg' alt='feed' class='productimage'></td>
+				<td>$10</td>
+				<td>50</td>
+				<td> 
+					<form action='order.html'>
+						<input type='hidden' name='product' value='3'>
+						<button type='submit'>Add to Cart</button>
+					</form>
+				</td>
+			</tr>
+			-->
+			
+			<?php require_once('db.inc'); ?>
+			
+			<?php
+				$result = $db->query('select * from products');
+				while($row = $result->fetch_object()) 
+				{
+					print "<tr>";
+						print "<td>".$row->Name."</td>";
+						print "<td><img src='product".$row->Id.".jpg' alt='hen' class='productimage'></td>";
+						print "<td>$".$row->Price."</td>";
+						print "<td>".$row->Qty."</td>";
+						print "<td>";
+							print "<form action='order.html'>";
+								print "<input type='hidden' name='product' value='".$row->Id."'>";
+								print "<button type='submit'>Add to Cart</button>";
+							print "</form>";
+						print "</td>";
+					print "</tr>";
+				}
+			?>
+			
+			<!--
+			<tr>
+				<td>NAME</td>
+				<td><img src='hen.jpg' alt='hen' class='productimage'></td>
+				<td>PRICE</td>
+				<td>QTY</td>
+				<td> 
+					<form action='order.html'>
+						<input type='hidden' name='product' value='ID'>
+						<button type='submit'>Add to Cart</button>
+					</form>
+				</td>
+			</tr>
+			-->
+		</table>
+				
+		<!--Starting a paragraph-->	
+		<p>
+			You can rent your chickens by placing an order on our website at any time. <br><br>
+			We have franchises to deliver and set up coops in seven states: <br> Arizona, Colorado, Connecticut, Delaware, Kansas, Michigan, and South Carolina. <br><br>
+			Orders will be shipped within 2 business days, and will arrive within 10 business days from the order date.<br><br>
+			For more information, feel free to <a href='contact.html'>contact</a> us.
+		</p>
+					
+	</div>
+		
+<?php include('foot.inc'); ?>

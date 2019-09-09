@@ -1,0 +1,116 @@
+/*
+Name: Evan Donald
+Date: January 23, 2019
+Complete through lab 12
+Purpose: css file
+*/
+
+body {
+	text-align:center;
+}
+h3 {
+	font-size:150%;
+}
+a {
+	color:#f00;
+}
+table, th, td {
+	border: 1px solid black;
+	text-align: center;
+}
+table {
+	margin: 0 auto;
+}
+th {
+	font-size:125%;
+}
+.productimage {
+	width:75px;
+}
+.sociallogo {
+	width:50px;
+}
+#header {
+	position:fixed;
+	top:0px;
+	left:0px;
+	width:100vw;
+	height:130px;
+	/*border: 1px solid #000;*/
+	box-sizing:border-box;
+	background-color:white;
+}
+#menu {
+	font-size: 150%;
+	position:fixed;
+	top:130px;
+	left:0px;
+	width:100vw;
+	height:85px;
+	/*border: 1px solid #000;*/
+	box-sizing:border-box;
+	background-color:white;
+}
+#content {
+	margin-top:215px;
+	margin-left:0px;
+	margin-bottom:2em;
+	/*border: 1px solid #000;*/
+	box-sizing:border-box;
+}
+#footer {
+	position:fixed;
+	bottom:0px;
+	left:0px;
+	width:100vw;
+	height:2em;
+	/*border: 1px solid #000;*/
+	box-sizing:border-box;
+	background-color:white;
+}
+
+#logo {
+	width:160px;
+	border:0px;
+}
+
+#cartlink {
+	width:30px;
+}
+
+#eggs {
+	width:300px;
+	border:0px;
+}
+#person {
+	width:400px;
+	border:0px;
+}
+
+.input #street {
+	width: 410px;
+}
+
+.input #email {
+	width: 410px;
+}
+.input #cardnum {
+	width: 410px;
+}
+
+input {
+	border: 0px;
+}
+
+.errormsg {
+	display:none;
+	color:red;
+}
+
+.error {
+	color:red;
+}
+
+
+
+
